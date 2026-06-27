@@ -56,9 +56,25 @@ export const COMPANIES: Company[] = [
     id: "innsight",
     name: "INNsight",
     fullName: "INNsight Intractive Pvt Ltd.",
-    location: "Noida, India",
-    role: "Software Engineer – Android",
-    period: "Jul 2024 - Present",
+    location: "Ahmedabad, Gujarat, India (On-site)",
+    role: "Android Developer",
+    period: "Jul 2024 - Present (2 yrs)",
+    roles: [
+      { title: "Android Developer", period: "Jul 2025 - Present" },
+      { title: "Jr Android Developer", period: "Jul 2024 - Sep 2025" }
+    ],
+    summary: "As a Software Engineer – Android at INNsight, I play a key role in developing, optimizing, and deploying Android applications designed for the hospitality industry. My responsibilities include feature development, performance improvements, and integrating critical services to ensure smooth functionality and a high-quality user experience.",
+    focusAreas: "Designing dynamic hotel PMS modules, secure custom authentication systems, robust offline sync with Room, and stable REST API integration.",
+    responsibilities: [
+      "End-to-End App Development: Designing, building, and deploying apps from the ground up, with a focus on architecture, feature implementation, and rigorous testing.",
+      "Custom Authentication: Implementing a custom authentication system for secure login and session management, ensuring seamless and secure user access across the application.",
+      "Firebase Integration: Utilizing Firebase services such as Crashlytics to monitor real-time app stability and App Distribution to manage rapid beta delivery.",
+      "API Integration: Seamlessly integrating custom-built RESTful APIs to enable secure and efficient data exchange, ensuring smooth cross-device functionality.",
+      "Feature Development: Building key features including property management, rate optimization, channel management, and facility management to improve hotel and resort operations.",
+      "Performance and Code Optimization: Continuously improving app performance by optimizing algorithms, reducing memory footprints, and enhancing UI responsiveness.",
+      "Testing and Debugging: Conducting comprehensive testing to ensure app compatibility, stability, and high performance across varied device models.",
+      "Deployment on Play Store: Managing the deployment of apps to the Google Play Store, ensuring full compliance with all publishing guidelines."
+    ],
     projects: [
       {
         id: "rms-app",
@@ -82,9 +98,20 @@ export const COMPANIES: Company[] = [
     id: "beetonz",
     name: "Beetonz Infotech",
     fullName: "Beetonz Infotech",
-    location: "Surat, Gujarat",
-    role: "Software Engineer – Android",
-    period: "May 2023 - Jul 2024",
+    location: "Gujarat, India (On-site)",
+    role: "Android Developer",
+    period: "May 2023 - Jul 2024 (1 yr 3 mos)",
+    roles: [
+      { title: "Android Developer", period: "May 2023 - Jul 2024" }
+    ],
+    summary: "I've been an Android Developer at Beetonz Infotech for over a year, where I develop mobile apps using Kotlin and Java. My responsibilities include building the app's logic, implementing designs, and testing the app on various Android devices to ensure it works smoothly.",
+    focusAreas: "Integrating CameraX & Camera2 APIs, implementing ARCore spatial tools, configuring offline security vaults, and refining multi-device layouts.",
+    responsibilities: [
+      "End-to-End App Delivery: Delivering multiple full-lifecycle Android applications end-to-end, from custom UI/UX implementation to final Play Store deployment.",
+      "Firebase Integrations: Implementing Firebase Authentication, Firestore, and Cloud Messaging (FCM) to power real-time notifications and secure user logins.",
+      "Code Refactoring: Modernizing legacy codebases by adopting modern Jetpack libraries to significantly enhance application performance and code maintainability.",
+      "Agile Collaboration: Actively collaborating in fast-paced Agile sprint teams to identify bugs, brainstorm improvements, and resolve production issues."
+    ],
     projects: [
       {
         id: "gps-camera",

@@ -9,6 +9,11 @@ export interface Project {
   category?: string;
 }
 
+export interface RoleHistory {
+  title: string;
+  period: string;
+}
+
 export interface Company {
   id: string;
   name: string;
@@ -16,6 +21,10 @@ export interface Company {
   location: string;
   role: string;
   period: string;
+  roles?: RoleHistory[];
+  summary?: string;
+  responsibilities?: string[];
+  focusAreas?: string;
   projects: Project[];
 }
 

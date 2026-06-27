@@ -92,76 +92,144 @@ export default function Experience({ onViewScreenshots }: ExperienceProps) {
                   <Cpu className="w-3.5 h-3.5 text-purple-400" /> Key Focus Areas
                 </div>
                 <p className="text-[10.5px] text-zinc-400 leading-relaxed font-sans">
-                  Crafting highly responsive threads, standard native callbacks, SQLite persistence mechanisms, and MVVM architectural stability.
+                  {activeCompany.focusAreas || "Crafting highly responsive apps, standard native integrations, and robust database architectures with clean architectural stability."}
                 </p>
               </div>
             </div>
 
-            {/* Right Box: Projects Grid */}
-            <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {activeCompany.projects.map((project, idx) => (
-                <div
-                  key={project.id}
-                  className="group bg-white/5 border border-white/10 backdrop-blur-md p-5 rounded-3xl flex flex-col justify-between min-h-[330px] h-auto hover:border-white/20 hover:bg-white/[0.08] transition-all duration-300 shadow-xl"
-                >
-                  <div className="space-y-4">
-                    {/* Project Header */}
-                    <div className="flex justify-between items-start">
-                      <div className="p-2.5 bg-white/5 rounded-xl border border-white/10 group-hover:border-purple-500/30 transition-all">
-                        <Smartphone className="w-4 h-4 text-purple-400" />
+            {/* Right Box: Company Details & Projects Grid */}
+            <div className="md:col-span-8 space-y-10">
+              {/* Core Role Summary & Key Responsibilities */}
+              {activeCompany.summary && (
+                <div className="bg-white/5 border border-white/10 backdrop-blur-md p-6 rounded-3xl space-y-6 text-left">
+                  <div className="space-y-2">
+                    <h4 className="text-base font-bold text-white tracking-tight">Role Overview & Focus</h4>
+                    <p className="text-xs text-zinc-300 leading-relaxed font-normal">
+                      {activeCompany.summary}
+                    </p>
+                  </div>
+
+                  {activeCompany.roles && activeCompany.roles.length > 0 && (
+                    <div className="border-t border-white/5 pt-4 space-y-3">
+                      <p className="text-[10px] font-bold text-purple-400 font-mono uppercase tracking-widest">Role History & Promotion Path</p>
+                      <div className="flex flex-wrap gap-2.5">
+                        {activeCompany.roles.map((r, i) => (
+                          <div key={i} className="flex items-center gap-2 bg-[#050508]/40 px-3 py-1.5 rounded-xl border border-white/5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                            <span className="text-xs font-semibold text-zinc-250">{r.title}</span>
+                            <span className="text-[10px] text-zinc-500 font-mono">({r.period})</span>
+                          </div>
+                        ))}
                       </div>
-                      <span className="text-[9px] font-mono uppercase font-bold tracking-widest px-2 py-0.5 bg-[#050508]/50 border border-white/15 rounded-lg text-zinc-400">
-                        {project.category || "Native App"}
-                      </span>
                     </div>
+                  )}
 
-                    <div className="space-y-2 text-left">
-                      <h4 className="text-base font-bold text-white group-hover:text-purple-400 transition-all">
-                        {project.name}
-                      </h4>
-                      <p className="text-[11.5px] leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-all">
-                        {project.description}
-                      </p>
+                  {activeCompany.responsibilities && activeCompany.responsibilities.length > 0 && (
+                    <div className="border-t border-white/5 pt-4 space-y-3">
+                      <p className="text-[10px] font-bold text-blue-400 font-mono uppercase tracking-widest">Key Contributions & Accomplishments</p>
+                      <ul className="grid grid-cols-1 gap-3 text-xs text-zinc-350">
+                        {activeCompany.responsibilities.map((resp, i) => {
+                          const separatorIndex = resp.indexOf(": ");
+                          if (separatorIndex === -1) {
+                            return (
+                              <li key={i} className="flex items-start gap-2.5 leading-relaxed">
+                                <span className="text-purple-400 mt-0.5 select-none font-semibold">▸</span>
+                                <span>{resp}</span>
+                              </li>
+                            );
+                          }
+                          const title = resp.substring(0, separatorIndex);
+                          const desc = resp.substring(separatorIndex + 2);
+                          return (
+                            <li key={i} className="flex items-start gap-2.5 leading-relaxed">
+                              <span className="text-purple-400 mt-0.5 select-none font-semibold">▸</span>
+                              <span>
+                                <strong className="text-zinc-100 font-semibold">{title}:</strong> {desc}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
                     </div>
-                  </div>
-
-                  <div className="space-y-4 pt-4 border-t border-white/5">
-                    {/* Project Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tech.map((techItem) => (
-                        <span 
-                          key={techItem} 
-                          className="px-2 py-0.5 bg-white/5 text-[10px] font-semibold text-zinc-400 rounded-md border border-white/10"
-                        >
-                          {techItem}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* View Screenshots and Play Store CTAs */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => onViewScreenshots(project.id, project.name, project.screenshots)}
-                        className={`${project.playStoreUrl ? 'flex-1' : 'w-full'} flex items-center justify-center gap-1.5 py-2 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 hover:border-white/20 text-xs font-bold text-white transition-all cursor-pointer`}
-                      >
-                        <LayoutGrid className="w-3.5 h-3.5 text-purple-400" />
-                        <span>Screenshots</span>
-                      </button>
-                      {project.playStoreUrl && (
-                        <a
-                          href={project.playStoreUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-purple-600/25 hover:bg-purple-600/45 border border-purple-500/30 text-xs font-bold text-purple-300 hover:text-white transition-all text-center"
-                        >
-                          <Play className="w-3.5 fill-purple-300/10 h-3.5 shrink-0" />
-                          <span>Google Play</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
+                  )}
                 </div>
-              ))}
+              )}
+
+              {/* Shipped Apps Header & Grid */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 border-b border-white/5 pb-2 text-left">
+                  <h4 className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest font-mono">Shipped Production Applications</h4>
+                  <span className="text-[10px] font-bold bg-purple-500/10 text-purple-300 px-2.5 py-0.5 rounded-full border border-purple-500/15 font-mono">
+                    {activeCompany.projects.length} Apps
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {activeCompany.projects.map((project, idx) => (
+                    <div
+                      key={project.id}
+                      className="group bg-white/5 border border-white/10 backdrop-blur-md p-5 rounded-3xl flex flex-col justify-between min-h-[330px] h-auto hover:border-white/20 hover:bg-white/[0.08] transition-all duration-300 shadow-xl"
+                    >
+                      <div className="space-y-4">
+                        {/* Project Header */}
+                        <div className="flex justify-between items-start">
+                          <div className="p-2.5 bg-white/5 rounded-xl border border-white/10 group-hover:border-purple-500/30 transition-all">
+                            <Smartphone className="w-4 h-4 text-purple-400" />
+                          </div>
+                          <span className="text-[9px] font-mono uppercase font-bold tracking-widest px-2 py-0.5 bg-[#050508]/50 border border-white/15 rounded-lg text-zinc-400">
+                            {project.category || "Native App"}
+                          </span>
+                        </div>
+
+                        <div className="space-y-2 text-left">
+                          <h4 className="text-base font-bold text-white group-hover:text-purple-400 transition-all">
+                            {project.name}
+                          </h4>
+                          <p className="text-[11.5px] leading-relaxed text-zinc-400 group-hover:text-zinc-300 transition-all">
+                            {project.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4 pt-4 border-t border-white/5">
+                        {/* Project Tech Badges */}
+                        <div className="flex flex-wrap gap-1.5">
+                          {project.tech.map((techItem) => (
+                            <span 
+                              key={techItem} 
+                              className="px-2 py-0.5 bg-white/5 text-[10px] font-semibold text-zinc-400 rounded-md border border-white/10"
+                            >
+                              {techItem}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* View Screenshots and Play Store CTAs */}
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => onViewScreenshots(project.id, project.name, project.screenshots)}
+                            className={`${project.playStoreUrl ? 'flex-1' : 'w-full'} flex items-center justify-center gap-1.5 py-2 rounded-xl bg-white/5 border border-white/15 hover:bg-white/10 hover:border-white/20 text-xs font-bold text-white transition-all cursor-pointer`}
+                          >
+                            <LayoutGrid className="w-3.5 h-3.5 text-purple-400" />
+                            <span>Screenshots</span>
+                          </button>
+                          {project.playStoreUrl && (
+                            <a
+                              href={project.playStoreUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-purple-600/25 hover:bg-purple-600/45 border border-purple-500/30 text-xs font-bold text-purple-300 hover:text-white transition-all text-center"
+                            >
+                              <Play className="w-3.5 fill-purple-300/10 h-3.5 shrink-0" />
+                              <span>Google Play</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
           </motion.div>

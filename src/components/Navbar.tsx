@@ -9,11 +9,11 @@ export default function Navbar() {
 
   const NAV_ITEMS = [
     { id: "home", label: "Home" },
+    { id: "stats", label: "Stats" },
     { id: "skills", label: "Skills" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
     { id: "timeline", label: "Timeline" },
-    { id: "stats", label: "Stats" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -22,20 +22,31 @@ export default function Navbar() {
       // Background scroll trigger
       setIsScrolled(window.scrollY > 30);
 
-      // Active Section detector
-      const sections = NAV_ITEMS.map((item) => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 120;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(NAV_ITEMS[i].id);
-          break;
+      // Active Section detector based on viewport boundaries
+      let currentActive = "home";
+      for (const item of NAV_ITEMS) {
+        const el = document.getElementById(item.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // If the section top has scrolled into view or past the 160px viewport threshold
+          if (rect.top <= 160) {
+            currentActive = item.id;
+          }
         }
+      }
+
+      // If at the absolute bottom of the document, default to the last section (contact)
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60;
+      if (isAtBottom) {
+        setActiveSection("contact");
+      } else {
+        setActiveSection(currentActive);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+    // Initial trigger to set active section
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

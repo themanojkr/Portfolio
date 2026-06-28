@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { motion } from "motion/react";
 import { 
   FileText, MessageSquare, Linkedin, Github, Compass, 
   Sparkles, Smartphone, ShieldCheck, Cpu 
 } from "lucide-react";
+import CoverLetterModal from "./CoverLetterModal";
 
 export default function Hero() {
+  const [isCoverLetterOpen, setIsCoverLetterOpen] = useState(false);
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -413,6 +417,14 @@ export default function Hero() {
               <span>Download Resume</span>
             </button>
 
+            <button
+              onClick={() => setIsCoverLetterOpen(true)}
+              className="flex items-center gap-2 px-5 py-3 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 text-purple-300 text-xs font-bold rounded-2xl transition shadow-lg shadow-purple-500/5 cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-purple-450 animate-pulse" />
+              <span>Cover Letter</span>
+            </button>
+
             <div className="flex items-center gap-2 pl-2">
               <a 
                 href="https://github.com/themanojkr" 
@@ -521,6 +533,11 @@ export default function Hero() {
         </motion.div>
 
       </div>
+
+      <CoverLetterModal 
+        isOpen={isCoverLetterOpen} 
+        onClose={() => setIsCoverLetterOpen(false)} 
+      />
     </section>
   );
 }
